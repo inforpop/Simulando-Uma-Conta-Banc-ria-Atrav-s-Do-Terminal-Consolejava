@@ -1,0 +1,103 @@
+Para simular uma conta bancária através do terminal console em Java, você pode criar uma aplicação simples que permite ao usuário interagir com a conta bancária, fazendo operações como depósito, saque e visualização do saldo. Abaixo está um exemplo básico de como isso pode ser implementado:
+
+```java
+import java.util.Scanner;
+
+public class ContaBancaria {
+    private double saldo;
+
+    public ContaBancaria(double saldoInicial) {
+        this.saldo = saldoInicial;
+    }
+
+    public void depositar(double valor) {
+        if (valor > 0) {
+            saldo += valor;
+            System.out.println("Depósito de R$" + valor + " realizado com sucesso.");
+        } else {
+            System.out.println("O valor do depósito deve ser positivo.");
+        }
+    }
+
+    public void sacar(double valor) {
+        if (valor > 0) {
+            if (saldo >= valor) {
+                saldo -= valor;
+                System.out.println("Saque de R$" + valor + " realizado com sucesso.");
+            } else {
+                System.out.println("Saldo insuficiente.");
+            }
+        } else {
+            System.out.println("O valor do saque deve ser positivo.");
+        }
+    }
+
+    public double consultarSaldo() {
+        return saldo;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Bem-vindo ao banco!");
+        System.out.print("Informe o saldo inicial da conta: ");
+        double saldoInicial = scanner.nextDouble();
+
+        ContaBancaria conta = new ContaBancaria(saldoInicial);
+
+        int opcao;
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1. Depositar");
+            System.out.println("2. Sacar");
+            System.out.println("3. Consultar saldo");
+            System.out.println("4. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Informe o valor para depósito: ");
+                    double valorDeposito = scanner.nextDouble();
+                    conta.depositar(valorDeposito);
+                    break;
+                case 2:
+                    System.out.print("Informe o valor para saque: ");
+                    double valorSaque = scanner.nextDouble();
+                    conta.sacar(valorSaque);
+                    break;
+                case 3:
+                    System.out.println("Saldo atual: R$" + conta.consultarSaldo());
+                    break;
+                case 4:
+                    System.out.println("Obrigado por usar nosso banco. Até mais!");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+            }
+        } while (opcao != 4);
+
+        scanner.close();
+    }
+}
+```
+
+### Explicação do código:
+1. **Classe `ContaBancaria`:**
+   - Possui um atributo `saldo` para armazenar o saldo da conta.
+   - Métodos:
+     - `depositar`: Adiciona um valor ao saldo, desde que seja positivo.
+     - `sacar`: Subtrai um valor do saldo, desde que seja positivo e haja saldo suficiente.
+     - `consultarSaldo`: Retorna o saldo atual da conta.
+
+2. **Método `main`:**
+   - Inicia a aplicação pedindo o saldo inicial da conta.
+   - Oferece um menu ao usuário para realizar operações de depósito, saque, consultar saldo ou sair.
+   - Usa um loop `do-while` para manter a aplicação rodando até que o usuário escolha sair.
+
+### Como Executar:
+1. Copie o código para um arquivo Java, por exemplo, `ContaBancaria.java`.
+2. Compile o arquivo usando o comando `javac ContaBancaria.java`.
+3. Execute o programa usando o comando `java ContaBancaria`.
+
+Isso permitirá que você simule as operações de uma conta bancária diretamente no terminal console.
